@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const path = require('path');
 const readline = require('readline-sync');
 const { execSync } = require('child_process');
 const open = require('open');
@@ -20,8 +21,8 @@ execSync(
   { stdio: 'inherit' }
 );
 
-console.log(process.argv);
-fs.writeFileSync(`./${repoName}/.gitignore`, '\n', { flag: 'a' });
+console.log(path.join(__dirname, projectName, '.gitignore'));
+// fs.writeFileSync(`./${repoName}/.gitignore`, '\n', { flag: 'a' });
 
 //  && git push -u origin ${branchName}a
 // const prLink = `https://github.com/tryber/${repoName}/pull/new/${branchName}`;
