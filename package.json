@@ -11,6 +11,10 @@
   "keywords": [
     "trybe"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matheusg18/trybe-prj.git"
+  },
   "author": "Matheus Santos",
   "license": "ISC",
   "dependencies": {
