@@ -1,6 +1,6 @@
 {
   "name": "trybe-prj",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "npx que cria um PR estilo trybe para os projetos",
   "main": "src/index.js",
   "scripts": {
@@ -15,6 +15,7 @@
     "type": "git",
     "url": "https://github.com/matheusg18/trybe-prj.git"
   },
+  "homepage": "https://github.com/matheusg18/trybe-prj",
   "author": "Matheus Santos",
   "license": "ISC",
   "dependencies": {
