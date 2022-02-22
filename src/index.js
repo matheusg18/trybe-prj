@@ -5,6 +5,10 @@ const colors = require('colors');
 const { execSync } = require('child_process');
 const open = require('open');
 const fs = require('fs');
+const getParams = require('./getParams');
+
+/* Criação e ajuste das variáveis */
+const params = getParams();
 
 const name = readline.question('Digite seu nome e sobrenome:\n-> '.green).trim();
 const repoLink = readline.question('\nQual o link SSH do projeto?\n-> '.green);
@@ -14,7 +18,7 @@ const repoUrlSufix = '.git';
 const repoName = repoLink.replace(repoUrlPrefix, '').replace(repoUrlSufix, '');
 
 const turmaRegex = /(sd-[0-9]{3})(-[a-z]-)/i;
-const projectName = repoName.replace(turmaRegex, '');
+const projectName = repoName.replace(turmaRegex, '').replace('project-', '');
 let branchName = `${name.toLowerCase().replace(' ', '-')}-${projectName}`;
 
 const acceptBranchName = readline.keyInYN(
@@ -39,15 +43,18 @@ const getPrTitle = () => {
   return `[${capitalizedName}] ${capitalizedProjectName}`;
 };
 
-execSync(`git clone ${repoLink}`, { stdio: 'inherit' });
+/* Comandos bash */
+execSync(`git clone ${repoLink} ${params.clonePath ? params.clonePath : ''}`, { stdio: 'inherit' });
 
 // Adiciona uma mudança para o git add
-fs.writeFileSync(`./${repoName}/.gitignore`, '\n', { flag: 'a' });
+fs.writeFileSync(`./${params.clonePath ? params.clonePath : repoName}/.gitignore`, '\n', { flag: 'a' });
 
 execSync(
-  `cd ${repoName} && npm install && git checkout -b ${branchName} && git commit -am "${getPrTitle()}" && git push -u origin ${branchName}`,
+  `cd ${params.clonePath ? params.clonePath : repoName} && npm install && git checkout -b ${branchName} && git commit -am "${getPrTitle()}" && git push -u origin ${branchName} ${params.code ? '&& code .' : ''}`,
   { stdio: 'inherit' }
 );
 
-const prLink = `https://github.com/tryber/${repoName}/pull/new/${branchName}`;
-open(prLink);
+if (params.pr) {
+  const prLink = `https://github.com/tryber/${repoName}/pull/new/${branchName}`;
+  open(prLink);
+}
