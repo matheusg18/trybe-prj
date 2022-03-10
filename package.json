@@ -21,6 +21,7 @@
   "dependencies": {
     "colors": "^1.4.0",
     "open": "^8.4.0",
-    "readline-sync": "^1.4.10"
+    "readline-sync": "^1.4.10",
+    "shelljs": "^0.8.5"
   }
 }
