@@ -2,9 +2,9 @@
 
 const readline = require('readline-sync');
 const colors = require('colors');
-const { execSync } = require('child_process');
 const open = require('open');
 const fs = require('fs');
+const shell = require('shelljs');
 const getParams = require('./getParams');
 
 /* Criação e ajuste das variáveis */
@@ -44,15 +44,21 @@ const getPrTitle = () => {
 };
 
 /* Comandos bash */
-execSync(`git clone ${repoLink} ${params.clonePath ? params.clonePath : ''}`, { stdio: 'inherit' });
+shell.exec(`git clone ${repoLink} ${params.clonePath ? params.clonePath : ''}`);
 
 // Adiciona uma mudança para o git add
 fs.writeFileSync(`./${params.clonePath ? params.clonePath : repoName}/.gitignore`, '\n', { flag: 'a' });
 
-execSync(
-  `cd ${params.clonePath ? params.clonePath : repoName} && npm install && git checkout -b ${branchName} && git commit -am "${getPrTitle()}" && git push -u origin ${branchName} ${params.code ? '&& code .' : ''}`,
-  { stdio: 'inherit' }
-);
+shell.cd(`${params.clonePath ? params.clonePath : repoName}`);
+shell.exec('npm install');
+shell.exec(`git checkout -b ${branchName}`);
+shell.exec(`git commit -am "${getPrTitle()}"`);
+shell.exec(`git commit -am "${getPrTitle()}"`);
+shell.exec(`git push -u origin ${branchName}`);
+
+if (params.code) {
+  shell.exec('code .');
+}
 
 if (params.pr) {
   const prLink = `https://github.com/tryber/${repoName}/pull/new/${branchName}`;
