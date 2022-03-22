@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const readline = require('readline-sync');
-const colors = require('colors');
+require('colors');
 const { execSync } = require('child_process');
 const open = require('open');
 const fs = require('fs');
@@ -25,7 +25,7 @@ const acceptBranchName = readline.keyInYN(
   '\nO nome da branch será: '.green + branchName.green.underline + ', ok?'.green
 );
 
-if (acceptBranchName === false) {
+if (!acceptBranchName) {
   branchName = readline.question('\nDigite o nome da branch: '.green);
 }
 
