@@ -20,6 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "colors": "^1.4.0",
+    "minimist": "^1.2.6",
     "open": "^8.4.0",
     "readline-sync": "^1.4.10"
   }

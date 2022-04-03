@@ -1,10 +1,13 @@
+const { _: args, ...options } = require('minimist')(process.argv.slice(2));
+
 const getParams = () => {
-  const params = process.argv.slice(2);
+  const pr = !!options.pr;
+  const code = !!options.code;
 
   const paramsSchema = {
-    pr: params.includes('--pr'),
-    code: params.includes('--code'),
-    clonePath: params.find((param) => param !== '--pr' && param !== '--code'),
+    pr,
+    code,
+    clonePath: args,
   };
 
   return paramsSchema;
