@@ -10,7 +10,7 @@ const getParams = require('./getParams');
 /* Criação e ajuste das variáveis */
 const params = getParams();
 
-const name = readline.question('Digite seu nome e sobrenome:\n-> '.green).trim();
+const name = readline.question('Digite seu nome e sobrenome:\n-> '.green).toLowerCase().trim().replaceAll(' ', '-');
 const repoLink = readline.question('\nQual o link SSH do projeto?\n-> '.green);
 
 const repoUrlPrefix = 'git@github.com:tryber/';
@@ -19,7 +19,7 @@ const repoName = repoLink.replace(repoUrlPrefix, '').replace(repoUrlSufix, '');
 
 const turmaRegex = /(sd-[0-9]{3})(-[a-z]-)/i;
 const projectName = repoName.replace(turmaRegex, '').replace('project-', '');
-let branchName = `${name.toLowerCase().replace(' ', '-')}-${projectName}`;
+let branchName = `${name}-${projectName}`;
 
 const acceptBranchName = readline.keyInYN(
   '\nO nome da branch será: '.green + branchName.green.underline + ', ok?'.green
