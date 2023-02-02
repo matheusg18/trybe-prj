@@ -18,7 +18,7 @@ if (fs.existsSync(storagePath)) {
 /* Criação e ajuste das variáveis */
 const params = getParams();
 
-let name = readline.question('Digite seu nome e sobrenome:\n-> '.green).toLowerCase().trim().replaceAll(' ', '-');
+let name = readline.question('Digite seu nome e sobrenome:\n-> '.green).toLowerCase().trim().replace(/ /g, '-');
 let repoLink = readline.question('\nQual o link SSH do projeto?\n-> '.green);
 
 const repoUrlPrefix = 'git@github.com:tryber/';
