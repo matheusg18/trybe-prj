@@ -4,7 +4,8 @@ const getParams = () => {
   const paramsSchema = {
     pr: params.includes('--pr'),
     code: params.includes('--code'),
-    clonePath: params.find((param) => param !== '--pr' && param !== '--code'),
+    default: params.includes('--default'),
+    clonePath: params.find((param) => param !== '--pr' && param !== '--code' && param !== '--default'),
   };
 
   return paramsSchema;
